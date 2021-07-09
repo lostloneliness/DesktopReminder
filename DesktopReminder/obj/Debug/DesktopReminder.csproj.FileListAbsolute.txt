@@ -1,0 +1,16 @@
+E:\C#\练习项目\DesktopReminder\DesktopReminder\bin\Debug\DesktopReminder.exe.config
+E:\C#\练习项目\DesktopReminder\DesktopReminder\bin\Debug\DesktopReminder.exe
+E:\C#\练习项目\DesktopReminder\DesktopReminder\bin\Debug\DesktopReminder.pdb
+E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\DesktopReminder.csprojAssemblyReference.cache
+E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\DesktopReminder.Form1.resources
+E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\DesktopReminder.Properties.Resources.resources
+E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\DesktopReminder.csproj.GenerateResource.cache
+E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\DesktopReminder.csproj.CoreCompileInputs.cache
+E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\DesktopReminder.exe
+E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\DesktopReminder.pdb
+E:\C#\练习项目\DesktopReminder\DesktopReminder\bin\Debug\SQLiteDataBase.dll
+E:\C#\练习项目\DesktopReminder\DesktopReminder\bin\Debug\System.Data.SQLite.dll
+E:\C#\练习项目\DesktopReminder\DesktopReminder\bin\Debug\SQLiteDataBase.pdb
+E:\C#\练习项目\DesktopReminder\DesktopReminder\bin\Debug\SQLiteDataBase.dll.config
+E:\C#\练习项目\DesktopReminder\DesktopReminder\bin\Debug\System.Data.SQLite.xml
+E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\DesktopReminder.csproj.CopyComplete
