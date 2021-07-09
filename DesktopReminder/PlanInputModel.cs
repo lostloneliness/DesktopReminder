@@ -83,7 +83,14 @@ namespace DesktopReminder
 
         private void 删除计划ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            //从数据库中删除
+            DataBase.DeleteDatabase(sqliteName, tableName, path, dgv_Plan.SelectedRows[0].Cells[0].Value.ToString().Trim());
+            //从dataGridView中删除
+            dgv_Plan.Rows.Remove(dgv_Plan.SelectedRows[0]);
+            if (DataBase.Information == null)
+                MessageBox.Show("删除计划成功");
+            else
+                MessageBox.Show("删除计划失败" + DataBase.Information);
         }
         #endregion
 

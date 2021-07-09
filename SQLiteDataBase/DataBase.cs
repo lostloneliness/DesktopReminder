@@ -127,6 +127,25 @@ namespace SQLiteDataBase
                 return new List<Paramenters.planTable>();
             }
         }
+        static private bool deleteData(string tableName,string data)
+        {
+            try
+            {
+                if (myConnection.State != ConnectionState.Open)
+                    myConnection.Open();
+                string SQL = $"DELETE FROM {tableName} WHERE 计划标题='{data}'";
+                myCommand.CommandText = SQL;
+                myCommand.Connection = myConnection;
+                myCommand.ExecuteNonQuery();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                information = "删除数据失败；\r\n" + ex.Message;
+                return false;
+            }
+
+        }
         static private bool closeConnection()
         {
             try
@@ -246,6 +265,20 @@ namespace SQLiteDataBase
             }
         }
 
+        static public bool DeleteDatabase(string sqliteName,string tableName,string path,string data)
+        {
+            try
+            {
+                connectionSqlite(sqliteName, path);
+                deleteData(tableName, data);
+                closeConnection();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
         #endregion
     }
 }
