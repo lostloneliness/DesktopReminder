@@ -146,6 +146,39 @@ namespace SQLiteDataBase
             }
 
         }
+
+        static private Paramenters.planTable updataDara(string tableName,string id)
+        {
+            Paramenters.planTable planData = new Paramenters.planTable();
+            if (myConnection.State != ConnectionState.Open)
+                myConnection.Open();
+            try
+            {
+                string SQL = $"UPDATE {tableName} set limit {id}";
+                myCommand.CommandText = SQL;
+                myCommand.Connection = myConnection;
+                SQLiteDataReader myReader = myCommand.ExecuteReader();
+                while (myReader.Read())
+                {
+                    // Paramenters.planTable planTable = new Paramenters.planTable();
+                    planData.planTitle = myReader.GetString(0);
+                    planData.planKind = myReader.GetString(1);
+                    planData.executionTime = myReader.GetString(2);
+                    planData.planContent = myReader.GetString(3);
+                    
+                }
+                myReader.Close();
+                return planData;
+               
+            }
+            catch(Exception ex)
+            {
+                information = "更新数据库失败" + ex.Message;
+                return new Paramenters.planTable();
+            }
+           
+        }
+
         static private bool closeConnection()
         {
             try
@@ -278,6 +311,24 @@ namespace SQLiteDataBase
             {
                 return false;
             }
+        }
+
+        static public Paramenters.planTable UpdataDatabase(string sqliteName,string tableName,string path,string id)
+        {
+            try
+            {
+                Paramenters.planTable planData = new Paramenters.planTable();
+                connectionSqlite(sqliteName, path);
+                planData = updataDara(tableName, id);
+                closeConnection();
+                return planData;
+            }
+            catch(Exception ex)
+            {
+                information = "更新数据库失败" + ex.Message;
+                return new Paramenters.planTable();
+            }
+            
         }
         #endregion
     }

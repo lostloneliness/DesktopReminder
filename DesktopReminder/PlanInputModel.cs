@@ -14,8 +14,8 @@ namespace DesktopReminder
         static private string path = Environment.CurrentDirectory;  //.exe文件所在的目录
         static private string sqliteName = "plan";
         static private string tableName = "planTable";
-
-
+        static private string oldTitle = null;
+        static private bool status = true;
         private void InitPlanInputForm()
         {
             //初始化dataGridView控件列的大小
@@ -79,6 +79,7 @@ namespace DesktopReminder
             cbox_PlanKind.Text = dgv_Plan.SelectedRows[0].Cells[1].Value.ToString();
             dtp_ExecutionTime.Text = dgv_Plan.SelectedRows[0].Cells[2].Value.ToString();
             txt_PlanContent.Text = dgv_Plan.SelectedRows[0].Cells[3].Value.ToString();
+            oldTitle = txt_PlanTitle.Text;
         }
 
         private void 删除计划ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -96,41 +97,61 @@ namespace DesktopReminder
 
         private void btn_AddPlan_Click(object sender, EventArgs e)
         {
-            Paramenters.planTable planData = new Paramenters.planTable();
+           
             if (txt_PlanTitle.Text == "" && txt_PlanContent.Text == "" && cbox_PlanKind.Text == "")
             {
                 MessageBox.Show("请输入完整计划");
                 return;
             }
             //获取界面控件数据
-            planData.planTitle = txt_PlanTitle.Text;
-            planData.planKind = cbox_PlanKind.Text;
-            planData.executionTime = dtp_ExecutionTime.Text;
-            planData.planContent = txt_PlanContent.Text;
+            Paramenters.planTable planData = GetFormData();
+            //planData.planTitle = txt_PlanTitle.Text;
+            //planData.planKind = cbox_PlanKind.Text;
+            //planData.executionTime = dtp_ExecutionTime.Text;
+            //planData.planContent = txt_PlanContent.Text;
 
             //将数据存储到数据库中
             DataBase.InserDatabase(sqliteName, tableName, path, planData);
-
-            //将添加的数据加载到dataGridView中的去
-            dgv_Plan.Rows.Add();
-            dgv_Plan.Rows[dgv_Plan.Rows.Count - 1].Cells[0].Value = planData.planTitle;
-            dgv_Plan.Rows[dgv_Plan.Rows.Count - 1].Cells[1].Value = planData.planKind;
-            dgv_Plan.Rows[dgv_Plan.Rows.Count - 1].Cells[2].Value = planData.executionTime;
-            dgv_Plan.Rows[dgv_Plan.Rows.Count - 1].Cells[3].Value = planData.planContent;
-
-            if (DataBase.Information == null)
+            if (DataBase.Information == null)  //保存数据成功
+            {
+                //将添加的数据加载到dataGridView中的去
+                dgv_Plan.Rows.Add();
+                dgv_Plan.Rows[dgv_Plan.Rows.Count - 1].Cells[0].Value = planData.planTitle;
+                dgv_Plan.Rows[dgv_Plan.Rows.Count - 1].Cells[1].Value = planData.planKind;
+                dgv_Plan.Rows[dgv_Plan.Rows.Count - 1].Cells[2].Value = planData.executionTime;
+                dgv_Plan.Rows[dgv_Plan.Rows.Count - 1].Cells[3].Value = planData.planContent;
                 MessageBox.Show("添加计划成功");
+            }
             else
                 MessageBox.Show(DataBase.Information);
         }
         private void btn_ModifyPlan_Click(object sender, EventArgs e)
         {
-            //将修改后的数据更新到数据库中
-            //DataBase.SaveDatabase(sqliteName,tableName,)
+            //获取修改后textBox中的数据
+            Paramenters.planTable planData = GetFormData();
 
             //更新dataGrid控件
+            dgv_Plan.SelectedRows[0].Cells[0].Value = txt_PlanTitle.Text;
+            dgv_Plan.SelectedRows[0].Cells[1].Value = cbox_PlanKind.Text;
+            dgv_Plan.SelectedRows[0].Cells[2].Value = dtp_ExecutionTime.Text;
+            dgv_Plan.SelectedRows[0].Cells[3].Value = txt_PlanContent.Text;
+            //dataGridView中的行是从0开始的，数据库中的行数从1开始的
+            //Paramenters.planTable planData2 = DataBase.UpdataDatabase(sqliteName, tableName, planData, path, (dgv_Plan.CurrentCell.RowIndex+1).ToString());
 
-           
+            DataBase.DeleteDatabase(sqliteName, tableName, path, oldTitle);   //删除旧的数据,这里的txt_PlamTitle.Text是修改后的值
+            DataBase.InserDatabase(sqliteName, tableName, path, planData);    //添加新的数据
+        }
+
+        //获取界面的数据
+        private Paramenters.planTable GetFormData()
+        {
+            Paramenters.planTable planData = new Paramenters.planTable();
+            //获取界面控件数据
+            planData.planTitle = txt_PlanTitle.Text;
+            planData.planKind = cbox_PlanKind.Text;
+            planData.executionTime = dtp_ExecutionTime.Text;
+            planData.planContent = txt_PlanContent.Text;
+            return planData;
         }
     }
 }
