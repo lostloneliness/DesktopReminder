@@ -16,6 +16,8 @@ namespace DesktopReminder
         static private string tableName = "planTable";
         static private string oldTitle = null;
         static private bool status = true;
+
+
         private void InitPlanInputForm()
         {
             //初始化dataGridView控件列的大小
@@ -23,20 +25,20 @@ namespace DesktopReminder
             dgv_Plan.Columns[1].Width = dgv_Plan.Width / 4 ;
             dgv_Plan.Columns[2].Width = dgv_Plan.Width / 4 - 1;
             dgv_Plan.Columns[3].Width = dgv_Plan.Width / 4 - 1;
-            //dataGridView控件选择整行
-            dgv_Plan.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             //初始化数据库，创建一个空的数据表
             DataBase.InitDatabase(sqliteName,tableName,path);
-            //读取数据库数据更新在dataGridView控件上
-            UpdateDataGridView();
+            //读取数据库的数据
+            List<Paramenters.planTable> planDatas = DataBase.ReadDatabase(sqliteName, tableName, path);
+            //将数据更新到dataGridView
+            UpdateDataGridView(dgv_Plan, planDatas, false) ;
         }
         /// <summary>
-        /// 读取数据库的值，更新dateGridView
+        /// 将数据在dateGridView显示
         /// </summary>
-        private void UpdateDataGridView()
+        private void UpdateDataGridView(DataGridView dgv, List<Paramenters.planTable> planDatas,bool Query)
         {
-            List<Paramenters.planTable> planDatas = new List<Paramenters.planTable>();
-            planDatas = DataBase.ReadDatabase(sqliteName,tableName,path);
+
+            dgv.Rows.Clear();
             //使用BindingList绑定数据的时候，只显示多少行，但是不显示内容
             //BindingList<Paramenters.planTable> Blist = new BindingList<Paramenters.planTable>(planDatas);
             //dgv_Plan.AutoGenerateColumns = true;         //允许dataGridView自动创建列
@@ -44,11 +46,13 @@ namespace DesktopReminder
            
             for(int i = 0;i<planDatas.Count;i++)
             {
-                dgv_Plan.Rows.Add();
-                dgv_Plan.Rows[i].Cells[0].Value = planDatas[i].planTitle;
-                dgv_Plan.Rows[i].Cells[1].Value = planDatas[i].planKind;
-                dgv_Plan.Rows[i].Cells[2].Value = planDatas[i].executionTime;
-                dgv_Plan.Rows[i].Cells[3].Value = planDatas[i].planContent; ;
+                dgv.Rows.Add();
+                dgv.Rows[i].Cells[0].Value = planDatas[i].planTitle;
+                dgv.Rows[i].Cells[1].Value = planDatas[i].planKind;
+                dgv.Rows[i].Cells[2].Value = planDatas[i].executionTime;
+                dgv.Rows[i].Cells[3].Value = planDatas[i].planContent;
+                if (Query == true)
+                    dgv.Rows[i].Cells[4].Value = planDatas[i].executionOnime;
             }
 
         }
@@ -109,7 +113,7 @@ namespace DesktopReminder
             //planData.planKind = cbox_PlanKind.Text;
             //planData.executionTime = dtp_ExecutionTime.Text;
             //planData.planContent = txt_PlanContent.Text;
-
+            planData.executionOnime = "";         //新计划的 按时完成 一列的值
             //将数据存储到数据库中
             DataBase.InserDatabase(sqliteName, tableName, path, planData);
             if (DataBase.Information == null)  //保存数据成功

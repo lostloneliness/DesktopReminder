@@ -11,7 +11,8 @@ namespace SQLiteDataBase
         static public string planTableStruct = @"计划标题 TEXT PRIMARY KEY NOT NULL,
                                                  计划种类 TEXT NOT NULL,
                                                  执行时间 TEXT NOT NULL,
-                                                 计划内容 TEXT NOT NULL";
+                                                 计划内容 TEXT NOT NULL,
+                                                 按时执行 TEXT ";
 
          public struct planTable
          {
@@ -19,7 +20,7 @@ namespace SQLiteDataBase
             public string planKind;
             public string executionTime;
             public string planContent ;
-
+            public string executionOnime;
 
             public object this[int 索引]
             {
@@ -31,15 +32,16 @@ namespace SQLiteDataBase
                         case 1:return planKind;
                         case 2:return executionTime;
                         case 3:return planContent;
+                        case 4:return executionOnime;
                         default:throw new AccessViolationException();
                     }
                 }
             }
 
             ////初始化的值
-            //public planTable(string str)
+            //public planTable(bool Ontime)
             //{
-
+                
             //}
         }
 

@@ -74,7 +74,7 @@ namespace SQLiteDataBase
             {
                 if (myConnection.State != ConnectionState.Open)
                     myConnection.Open();
-                string SQL = $"{instruction} {tableName} VALUES(:param0,:param1,:param2,:param3)";
+                string SQL = $"{instruction} {tableName} VALUES(:param0,:param1,:param2,:param3,:param4)";
                 myCommand.CommandText = SQL;
                 myCommand.Connection = myConnection;
                 //添加参数
@@ -82,7 +82,8 @@ namespace SQLiteDataBase
                 myCommand.Parameters.Add("param1", DbType.String);
                 myCommand.Parameters.Add("param2", DbType.String);
                 myCommand.Parameters.Add("param3", DbType.String);
-                for (int i = 0; i < 4; i++)
+                myCommand.Parameters.Add("param4", DbType.String);
+                for (int i = 0; i < 5; i++)
                 {
                     myCommand.Parameters[i].Value = planDate[i];
                 }
@@ -116,6 +117,7 @@ namespace SQLiteDataBase
                     planTable.planKind = myReader.GetString(1);
                     planTable.executionTime = myReader.GetString(2);
                     planTable.planContent = myReader.GetString(3);
+                    planTable.executionOnime = myReader.GetString(4);
                     planDatas.Add(planTable);
                 }
                 myReader.Close();
@@ -195,6 +197,9 @@ namespace SQLiteDataBase
                 return false;
             }
         }
+
+
+
         #endregion
         #region 外部调用
         /// <summary>
