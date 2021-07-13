@@ -21,16 +21,16 @@ namespace DesktopReminder
         private void InitPlanInputForm()
         {
             //初始化dataGridView控件列的大小
-            dgv_Plan.Columns[0].Width = dgv_Plan.Width / 4 ;
-            dgv_Plan.Columns[1].Width = dgv_Plan.Width / 4 ;
-            dgv_Plan.Columns[2].Width = dgv_Plan.Width / 4 - 1;
-            dgv_Plan.Columns[3].Width = dgv_Plan.Width / 4 - 1;
+            dgv_AddPlan.Columns[0].Width = dgv_AddPlan.Width / 4 ;
+            dgv_AddPlan.Columns[1].Width = dgv_AddPlan.Width / 4 ;
+            dgv_AddPlan.Columns[2].Width = dgv_AddPlan.Width / 4 - 1;
+            dgv_AddPlan.Columns[3].Width = dgv_AddPlan.Width / 4 - 1;
             //初始化数据库，创建一个空的数据表
             DataBase.InitDatabase(sqliteName,tableName,path);
             //读取数据库的数据
             List<Paramenters.planTable> planDatas = DataBase.ReadDatabase(sqliteName, tableName, path);
             //将数据更新到dataGridView
-            UpdateDataGridView(dgv_Plan, planDatas, false) ;
+            UpdateDataGridView(dgv_AddPlan, planDatas, false) ;
         }
         /// <summary>
         /// 将数据在dateGridView显示
@@ -82,19 +82,19 @@ namespace DesktopReminder
             btn_AddPlan.Enabled = false;
             btn_ModifyPlan.Enabled = true;
             //将dataGridView控件中选中行的数据更新在右侧panle中
-            txt_PlanTitle.Text = dgv_Plan.SelectedRows[0].Cells[0].Value.ToString();
-            cbox_PlanKind.Text = dgv_Plan.SelectedRows[0].Cells[1].Value.ToString();
-            dtp_ExecutionTime.Text = dgv_Plan.SelectedRows[0].Cells[2].Value.ToString();
-            txt_PlanContent.Text = dgv_Plan.SelectedRows[0].Cells[3].Value.ToString();
+            txt_PlanTitle.Text = dgv_AddPlan.SelectedRows[0].Cells[0].Value.ToString();
+            cbox_PlanKind.Text = dgv_AddPlan.SelectedRows[0].Cells[1].Value.ToString();
+            dtp_ExecutionTime.Text = dgv_AddPlan.SelectedRows[0].Cells[2].Value.ToString();
+            txt_PlanContent.Text = dgv_AddPlan.SelectedRows[0].Cells[3].Value.ToString();
             oldTitle = txt_PlanTitle.Text;
         }
 
         private void 删除计划ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //从数据库中删除
-            DataBase.DeleteDatabase(sqliteName, tableName, path, dgv_Plan.SelectedRows[0].Cells[0].Value.ToString().Trim());
+            DataBase.DeleteDatabase(sqliteName, tableName, path, dgv_AddPlan.SelectedRows[0].Cells[0].Value.ToString().Trim());
             //从dataGridView中删除
-            dgv_Plan.Rows.Remove(dgv_Plan.SelectedRows[0]);
+            dgv_AddPlan.Rows.Remove(dgv_AddPlan.SelectedRows[0]);
             if (DataBase.Information == null)
                 MessageBox.Show("删除计划成功");
             else
@@ -119,11 +119,11 @@ namespace DesktopReminder
             if (DataBase.Information == null)  //保存数据成功
             {
                 //将添加的数据加载到dataGridView中的去
-                dgv_Plan.Rows.Add();
-                dgv_Plan.Rows[dgv_Plan.Rows.Count - 1].Cells[0].Value = planData.planTitle;
-                dgv_Plan.Rows[dgv_Plan.Rows.Count - 1].Cells[1].Value = planData.planKind;
-                dgv_Plan.Rows[dgv_Plan.Rows.Count - 1].Cells[2].Value = planData.executionTime;
-                dgv_Plan.Rows[dgv_Plan.Rows.Count - 1].Cells[3].Value = planData.planContent;
+                dgv_AddPlan.Rows.Add();
+                dgv_AddPlan.Rows[dgv_AddPlan.Rows.Count - 1].Cells[0].Value = planData.planTitle;
+                dgv_AddPlan.Rows[dgv_AddPlan.Rows.Count - 1].Cells[1].Value = planData.planKind;
+                dgv_AddPlan.Rows[dgv_AddPlan.Rows.Count - 1].Cells[2].Value = planData.executionTime;
+                dgv_AddPlan.Rows[dgv_AddPlan.Rows.Count - 1].Cells[3].Value = planData.planContent;
                 MessageBox.Show("添加计划成功");
             }
             else
@@ -135,10 +135,10 @@ namespace DesktopReminder
             Paramenters.planTable planData = GetFormData();
 
             //更新dataGrid控件
-            dgv_Plan.SelectedRows[0].Cells[0].Value = txt_PlanTitle.Text;
-            dgv_Plan.SelectedRows[0].Cells[1].Value = cbox_PlanKind.Text;
-            dgv_Plan.SelectedRows[0].Cells[2].Value = dtp_ExecutionTime.Text;
-            dgv_Plan.SelectedRows[0].Cells[3].Value = txt_PlanContent.Text;
+            dgv_AddPlan.SelectedRows[0].Cells[0].Value = txt_PlanTitle.Text;
+            dgv_AddPlan.SelectedRows[0].Cells[1].Value = cbox_PlanKind.Text;
+            dgv_AddPlan.SelectedRows[0].Cells[2].Value = dtp_ExecutionTime.Text;
+            dgv_AddPlan.SelectedRows[0].Cells[3].Value = txt_PlanContent.Text;
             //dataGridView中的行是从0开始的，数据库中的行数从1开始的
             //Paramenters.planTable planData2 = DataBase.UpdataDatabase(sqliteName, tableName, planData, path, (dgv_Plan.CurrentCell.RowIndex+1).ToString());
 

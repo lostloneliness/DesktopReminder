@@ -59,11 +59,36 @@ namespace DesktopReminder
             this.btn_cancel = new System.Windows.Forms.Button();
             this.btn_query = new System.Windows.Forms.Button();
             this.dgv_ShowPlan = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cms_PlanInput = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.添加计划ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.修改计划ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除计划ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.panel17 = new System.Windows.Forms.Panel();
+            this.btn_StatisticsQuery = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.panel18 = new System.Windows.Forms.Panel();
+            this.rdo_NotOntime = new System.Windows.Forms.RadioButton();
+            this.rdo_Ontime = new System.Windows.Forms.RadioButton();
+            this.panel20 = new System.Windows.Forms.Panel();
+            this.panel21 = new System.Windows.Forms.Panel();
+            this.panel22 = new System.Windows.Forms.Panel();
+            this.panel23 = new System.Windows.Forms.Panel();
+            this.panel24 = new System.Windows.Forms.Panel();
+            this.panel25 = new System.Windows.Forms.Panel();
+            this.dgv_statisticsPlan = new System.Windows.Forms.DataGridView();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -77,7 +102,7 @@ namespace DesktopReminder
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.dgv_Plan = new System.Windows.Forms.DataGridView();
+            this.dgv_AddPlan = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -101,12 +126,6 @@ namespace DesktopReminder
             this.label5 = new System.Windows.Forms.Label();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cms_tryMenu.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -118,9 +137,16 @@ namespace DesktopReminder
             this.panel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ShowPlan)).BeginInit();
             this.cms_PlanInput.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.panel17.SuspendLayout();
+            this.panel18.SuspendLayout();
+            this.panel20.SuspendLayout();
+            this.panel22.SuspendLayout();
+            this.panel23.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_statisticsPlan)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Plan)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_AddPlan)).BeginInit();
             this.tabPage5.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -395,6 +421,42 @@ namespace DesktopReminder
             this.dgv_ShowPlan.TabIndex = 1;
             this.dgv_ShowPlan.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_ShowPlan_CellContentDoubleClick);
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "计划标题";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "计划种类";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "执行日期";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "计划内容";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "按时执行";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "执行说明";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            // 
             // cms_PlanInput
             // 
             this.cms_PlanInput.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -427,6 +489,8 @@ namespace DesktopReminder
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.panel17);
+            this.tabPage2.Controls.Add(this.dgv_statisticsPlan);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -434,6 +498,168 @@ namespace DesktopReminder
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "计划统计";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // panel17
+            // 
+            this.panel17.Controls.Add(this.btn_StatisticsQuery);
+            this.panel17.Controls.Add(this.label12);
+            this.panel17.Controls.Add(this.panel18);
+            this.panel17.Controls.Add(this.panel20);
+            this.panel17.Controls.Add(this.panel22);
+            this.panel17.Location = new System.Drawing.Point(546, 0);
+            this.panel17.Name = "panel17";
+            this.panel17.Size = new System.Drawing.Size(243, 450);
+            this.panel17.TabIndex = 8;
+            // 
+            // btn_StatisticsQuery
+            // 
+            this.btn_StatisticsQuery.Location = new System.Drawing.Point(130, 167);
+            this.btn_StatisticsQuery.Name = "btn_StatisticsQuery";
+            this.btn_StatisticsQuery.Size = new System.Drawing.Size(75, 23);
+            this.btn_StatisticsQuery.TabIndex = 15;
+            this.btn_StatisticsQuery.Text = "查询";
+            this.btn_StatisticsQuery.UseVisualStyleBackColor = true;
+            this.btn_StatisticsQuery.Click += new System.EventHandler(this.btn_StatisticsQuery_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(3, 3);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(161, 12);
+            this.label12.TabIndex = 14;
+            this.label12.Text = "注：统计本年的计划执行情况";
+            // 
+            // panel18
+            // 
+            this.panel18.Controls.Add(this.rdo_NotOntime);
+            this.panel18.Controls.Add(this.rdo_Ontime);
+            this.panel18.Location = new System.Drawing.Point(5, 33);
+            this.panel18.Name = "panel18";
+            this.panel18.Size = new System.Drawing.Size(200, 100);
+            this.panel18.TabIndex = 13;
+            // 
+            // rdo_NotOntime
+            // 
+            this.rdo_NotOntime.AutoSize = true;
+            this.rdo_NotOntime.Location = new System.Drawing.Point(15, 58);
+            this.rdo_NotOntime.Name = "rdo_NotOntime";
+            this.rdo_NotOntime.Size = new System.Drawing.Size(119, 16);
+            this.rdo_NotOntime.TabIndex = 1;
+            this.rdo_NotOntime.TabStop = true;
+            this.rdo_NotOntime.Text = "未按期执行的计划";
+            this.rdo_NotOntime.UseVisualStyleBackColor = true;
+            // 
+            // rdo_Ontime
+            // 
+            this.rdo_Ontime.AutoSize = true;
+            this.rdo_Ontime.Location = new System.Drawing.Point(15, 17);
+            this.rdo_Ontime.Name = "rdo_Ontime";
+            this.rdo_Ontime.Size = new System.Drawing.Size(119, 16);
+            this.rdo_Ontime.TabIndex = 0;
+            this.rdo_Ontime.TabStop = true;
+            this.rdo_Ontime.Text = "已按期执行的计划";
+            this.rdo_Ontime.UseVisualStyleBackColor = true;
+            // 
+            // panel20
+            // 
+            this.panel20.BackColor = System.Drawing.Color.Black;
+            this.panel20.Controls.Add(this.panel21);
+            this.panel20.Location = new System.Drawing.Point(0, 152);
+            this.panel20.Name = "panel20";
+            this.panel20.Size = new System.Drawing.Size(243, 2);
+            this.panel20.TabIndex = 12;
+            // 
+            // panel21
+            // 
+            this.panel21.BackColor = System.Drawing.Color.Black;
+            this.panel21.Location = new System.Drawing.Point(0, 39);
+            this.panel21.Name = "panel21";
+            this.panel21.Size = new System.Drawing.Size(750, 2);
+            this.panel21.TabIndex = 11;
+            // 
+            // panel22
+            // 
+            this.panel22.BackColor = System.Drawing.Color.Black;
+            this.panel22.Controls.Add(this.panel23);
+            this.panel22.Controls.Add(this.panel25);
+            this.panel22.Location = new System.Drawing.Point(0, 25);
+            this.panel22.Name = "panel22";
+            this.panel22.Size = new System.Drawing.Size(243, 2);
+            this.panel22.TabIndex = 11;
+            // 
+            // panel23
+            // 
+            this.panel23.BackColor = System.Drawing.Color.Black;
+            this.panel23.Controls.Add(this.panel24);
+            this.panel23.Location = new System.Drawing.Point(0, 21);
+            this.panel23.Name = "panel23";
+            this.panel23.Size = new System.Drawing.Size(243, 2);
+            this.panel23.TabIndex = 12;
+            // 
+            // panel24
+            // 
+            this.panel24.BackColor = System.Drawing.Color.Black;
+            this.panel24.Location = new System.Drawing.Point(0, 39);
+            this.panel24.Name = "panel24";
+            this.panel24.Size = new System.Drawing.Size(750, 2);
+            this.panel24.TabIndex = 11;
+            // 
+            // panel25
+            // 
+            this.panel25.BackColor = System.Drawing.Color.Black;
+            this.panel25.Location = new System.Drawing.Point(0, 39);
+            this.panel25.Name = "panel25";
+            this.panel25.Size = new System.Drawing.Size(750, 2);
+            this.panel25.TabIndex = 11;
+            // 
+            // dgv_statisticsPlan
+            // 
+            this.dgv_statisticsPlan.AllowUserToAddRows = false;
+            this.dgv_statisticsPlan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_statisticsPlan.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column7,
+            this.Column8,
+            this.Column9,
+            this.Column10,
+            this.Column11,
+            this.Column12});
+            this.dgv_statisticsPlan.Location = new System.Drawing.Point(0, 0);
+            this.dgv_statisticsPlan.Name = "dgv_statisticsPlan";
+            this.dgv_statisticsPlan.RowHeadersVisible = false;
+            this.dgv_statisticsPlan.RowTemplate.Height = 23;
+            this.dgv_statisticsPlan.Size = new System.Drawing.Size(540, 450);
+            this.dgv_statisticsPlan.TabIndex = 0;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "计划标题";
+            this.Column7.Name = "Column7";
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "计划种类";
+            this.Column8.Name = "Column8";
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "执行日期";
+            this.Column9.Name = "Column9";
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "计划内容";
+            this.Column10.Name = "Column10";
+            // 
+            // Column11
+            // 
+            this.Column11.HeaderText = "按时执行";
+            this.Column11.Name = "Column11";
+            // 
+            // Column12
+            // 
+            this.Column12.HeaderText = "执行说明";
+            this.Column12.Name = "Column12";
             // 
             // tabPage3
             // 
@@ -447,7 +673,7 @@ namespace DesktopReminder
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.panel1);
-            this.tabPage4.Controls.Add(this.dgv_Plan);
+            this.tabPage4.Controls.Add(this.dgv_AddPlan);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(789, 459);
@@ -564,24 +790,24 @@ namespace DesktopReminder
             this.label1.TabIndex = 0;
             this.label1.Text = "计划标题";
             // 
-            // dgv_Plan
+            // dgv_AddPlan
             // 
-            this.dgv_Plan.AllowUserToAddRows = false;
-            this.dgv_Plan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Plan.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgv_AddPlan.AllowUserToAddRows = false;
+            this.dgv_AddPlan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_AddPlan.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
             this.Column3,
             this.Column4});
-            this.dgv_Plan.ContextMenuStrip = this.cms_PlanInput;
-            this.dgv_Plan.Location = new System.Drawing.Point(0, 0);
-            this.dgv_Plan.Name = "dgv_Plan";
-            this.dgv_Plan.ReadOnly = true;
-            this.dgv_Plan.RowHeadersVisible = false;
-            this.dgv_Plan.RowTemplate.Height = 23;
-            this.dgv_Plan.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_Plan.Size = new System.Drawing.Size(538, 454);
-            this.dgv_Plan.TabIndex = 0;
+            this.dgv_AddPlan.ContextMenuStrip = this.cms_PlanInput;
+            this.dgv_AddPlan.Location = new System.Drawing.Point(0, 0);
+            this.dgv_AddPlan.Name = "dgv_AddPlan";
+            this.dgv_AddPlan.ReadOnly = true;
+            this.dgv_AddPlan.RowHeadersVisible = false;
+            this.dgv_AddPlan.RowTemplate.Height = 23;
+            this.dgv_AddPlan.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv_AddPlan.Size = new System.Drawing.Size(538, 454);
+            this.dgv_AddPlan.TabIndex = 0;
             // 
             // Column1
             // 
@@ -792,42 +1018,6 @@ namespace DesktopReminder
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "计划标题";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "计划种类";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "执行日期";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "计划内容";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "按时执行";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "执行说明";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -850,10 +1040,19 @@ namespace DesktopReminder
             this.panel11.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_ShowPlan)).EndInit();
             this.cms_PlanInput.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.panel17.ResumeLayout(false);
+            this.panel17.PerformLayout();
+            this.panel18.ResumeLayout(false);
+            this.panel18.PerformLayout();
+            this.panel20.ResumeLayout(false);
+            this.panel22.ResumeLayout(false);
+            this.panel23.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_statisticsPlan)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Plan)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_AddPlan)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             this.panel6.ResumeLayout(false);
@@ -880,7 +1079,7 @@ namespace DesktopReminder
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.DataGridView dgv_Plan;
+        private System.Windows.Forms.DataGridView dgv_AddPlan;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
@@ -943,6 +1142,25 @@ namespace DesktopReminder
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.Panel panel17;
+        private System.Windows.Forms.Panel panel20;
+        private System.Windows.Forms.Panel panel21;
+        private System.Windows.Forms.Panel panel22;
+        private System.Windows.Forms.Panel panel23;
+        private System.Windows.Forms.Panel panel24;
+        private System.Windows.Forms.Panel panel25;
+        private System.Windows.Forms.DataGridView dgv_statisticsPlan;
+        private System.Windows.Forms.Panel panel18;
+        private System.Windows.Forms.RadioButton rdo_NotOntime;
+        private System.Windows.Forms.RadioButton rdo_Ontime;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button btn_StatisticsQuery;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
     }
 }
 

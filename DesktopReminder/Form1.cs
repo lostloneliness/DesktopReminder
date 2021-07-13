@@ -25,6 +25,7 @@ namespace DesktopReminder
             InitPlanInputForm();    //初始化计划录入界面
             InitReminderSettings(); //初始化提醒设置界面
             InitPlanQueryModel();   //初始化计划查询界面
+            InitPlanStatistics();   //初始化计划统计界面
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -45,6 +46,8 @@ namespace DesktopReminder
             int days;//存储提前天数
             nfi_trayMenu.ShowBalloonTip(1000, "计划提示", "提示信息", ToolTipIcon.Info);
         }
+
+
 
 
     }

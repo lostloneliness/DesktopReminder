@@ -24,15 +24,12 @@ namespace DesktopReminder
             
         }
 
-        //按计划内容查询,区分大小写
-        private List<planTable> QueryContent(List<planTable> planDatas)
-        {
-            List<planTable> list = (from a in planDatas
-                                    where a.planContent.Contains(txt_keyword.Text)
-                                    orderby a.executionTime descending
-                                    select a).ToList();
-            return list;
-        }
+        /// <summary>
+        /// 按照提前日期
+        /// </summary>
+        /// <param name="planDatas"></param>
+        /// <param name="days"></param>
+        /// <returns></returns>
         private List<planTable> QueryDays(List<planTable> planDatas,int days)
         {
             List<planTable> list = (from a in planDatas
@@ -41,19 +38,29 @@ namespace DesktopReminder
                                     select a).ToList();
             return list;
         }
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_query_Click(object sender, EventArgs e)
         {
             //读取数据库中的数据，返回list
             List<Paramenters.planTable> planDatas = DataBase.ReadDatabase(sqliteName, tableName, path);
             List<planTable> list = new List<planTable>();
             int days = (int)nud_ReminderDays.Value;
+            //按照内容关键字查询
             if (chk_QueryContent.Checked == true)
             {
                 if (txt_keyword.Text == "")      //关键字为空，则查询全部
                     list = planDatas;
                 else
-                    list = QueryContent(planDatas);
+                    list = (from a in planDatas
+                            where a.planContent.Contains(txt_keyword.Text)
+                            orderby a.executionTime descending
+                            select a).ToList();
             }
+            //按照提前时间查询
             else if (chk_QueryDays.Checked == true)
             {
                 //string str = DateTime.Now.ToLongDateString();
@@ -66,6 +73,11 @@ namespace DesktopReminder
             UpdateDataGridView(dgv_ShowPlan, list,true);
         }
 
+        /// <summary>
+        /// 退出查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_cancel_Click(object sender, EventArgs e)
         {
 
