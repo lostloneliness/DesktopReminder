@@ -74,7 +74,7 @@ namespace SQLiteDataBase
             {
                 if (myConnection.State != ConnectionState.Open)
                     myConnection.Open();
-                string SQL = $"{instruction} {tableName} VALUES(:param0,:param1,:param2,:param3,:param4)";
+                string SQL = $"{instruction} {tableName} VALUES(:param0,:param1,:param2,:param3,:param4,:param5)";
                 myCommand.CommandText = SQL;
                 myCommand.Connection = myConnection;
                 //添加参数
@@ -83,7 +83,8 @@ namespace SQLiteDataBase
                 myCommand.Parameters.Add("param2", DbType.String);
                 myCommand.Parameters.Add("param3", DbType.String);
                 myCommand.Parameters.Add("param4", DbType.String);
-                for (int i = 0; i < 5; i++)
+                myCommand.Parameters.Add("param5", DbType.String);
+                for (int i = 0; i < 6; i++)
                 {
                     myCommand.Parameters[i].Value = planDate[i];
                 }
@@ -118,6 +119,7 @@ namespace SQLiteDataBase
                     planTable.executionTime = myReader.GetString(2);
                     planTable.planContent = myReader.GetString(3);
                     planTable.executionOnime = myReader.GetString(4);
+                    planTable.executionInstruction = myReader.GetString(5);
                     planDatas.Add(planTable);
                 }
                 myReader.Close();
@@ -149,34 +151,24 @@ namespace SQLiteDataBase
 
         }
 
-        static private Paramenters.planTable updataDara(string tableName,string id)
+        static private bool updataDara(string tableName,string executionOntime,string executionInstruction,string planTitle)
         {
             Paramenters.planTable planData = new Paramenters.planTable();
             if (myConnection.State != ConnectionState.Open)
                 myConnection.Open();
             try
             {
-                string SQL = $"UPDATE {tableName} set limit {id}";
+                string SQL = $"UPDATE {tableName} set 按时执行 = '{executionOntime}',执行说明 = '{executionInstruction}' where 计划标题 = '{planTitle}'";
                 myCommand.CommandText = SQL;
                 myCommand.Connection = myConnection;
-                SQLiteDataReader myReader = myCommand.ExecuteReader();
-                while (myReader.Read())
-                {
-                    // Paramenters.planTable planTable = new Paramenters.planTable();
-                    planData.planTitle = myReader.GetString(0);
-                    planData.planKind = myReader.GetString(1);
-                    planData.executionTime = myReader.GetString(2);
-                    planData.planContent = myReader.GetString(3);
-                    
-                }
-                myReader.Close();
-                return planData;
+                myCommand.ExecuteNonQuery();
+                return true;
                
             }
             catch(Exception ex)
             {
                 information = "更新数据库失败" + ex.Message;
-                return new Paramenters.planTable();
+                return true;
             }
            
         }
@@ -318,20 +310,20 @@ namespace SQLiteDataBase
             }
         }
 
-        static public Paramenters.planTable UpdataDatabase(string sqliteName,string tableName,string path,string id)
+        static public bool UpdataDatabase(string sqliteName,string tableName,string path, string executionOntime, string executionInstruction, string planTitle)
         {
             try
             {
-                Paramenters.planTable planData = new Paramenters.planTable();
+                
                 connectionSqlite(sqliteName, path);
-                planData = updataDara(tableName, id);
+                updataDara(tableName, executionOntime, executionInstruction, planTitle);
                 closeConnection();
-                return planData;
+                return true;
             }
             catch(Exception ex)
             {
                 information = "更新数据库失败" + ex.Message;
-                return new Paramenters.planTable();
+                return false;
             }
             
         }

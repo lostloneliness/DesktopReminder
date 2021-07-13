@@ -14,3 +14,4 @@ E:\C#\练习项目\DesktopReminder\DesktopReminder\bin\Debug\SQLiteDataBase.pdb
 E:\C#\练习项目\DesktopReminder\DesktopReminder\bin\Debug\SQLiteDataBase.dll.config
 E:\C#\练习项目\DesktopReminder\DesktopReminder\bin\Debug\System.Data.SQLite.xml
 E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\DesktopReminder.csproj.CopyComplete
+E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\DesktopReminder.TreatmentPlanForm.resources

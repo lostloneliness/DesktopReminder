@@ -14,11 +14,12 @@ namespace DesktopReminder
         private void InitPlanQueryModel()
         {
             //初始化dataGridView控件中每一列的宽度
-            dgv_ShowPlan.Columns[0].Width = dgv_ShowPlan.Width / 5;
-            dgv_ShowPlan.Columns[1].Width = dgv_ShowPlan.Width / 5;
-            dgv_ShowPlan.Columns[2].Width = dgv_ShowPlan.Width / 5;
-            dgv_ShowPlan.Columns[3].Width = dgv_ShowPlan.Width / 5;
-            dgv_ShowPlan.Columns[4].Width = dgv_ShowPlan.Width / 5;
+            dgv_ShowPlan.Columns[0].Width = dgv_ShowPlan.Width / 6;
+            dgv_ShowPlan.Columns[1].Width = dgv_ShowPlan.Width / 6;
+            dgv_ShowPlan.Columns[2].Width = dgv_ShowPlan.Width / 6;
+            dgv_ShowPlan.Columns[3].Width = dgv_ShowPlan.Width / 6;
+            dgv_ShowPlan.Columns[4].Width = dgv_ShowPlan.Width / 6;
+            dgv_ShowPlan.Columns[5].Width = dgv_ShowPlan.Width / 6;
 
             
         }
@@ -48,7 +49,10 @@ namespace DesktopReminder
             int days = (int)nud_ReminderDays.Value;
             if (chk_QueryContent.Checked == true)
             {
-                list = QueryContent(planDatas);
+                if (txt_keyword.Text == "")      //关键字为空，则查询全部
+                    list = planDatas;
+                else
+                    list = QueryContent(planDatas);
             }
             else if (chk_QueryDays.Checked == true)
             {
@@ -65,6 +69,20 @@ namespace DesktopReminder
         private void btn_cancel_Click(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// dataGridView控件双击单元格时触发
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgv_ShowPlan_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //将双击行的plantitle显示在新界面上
+            TreatmentPlanForm treatmentPlanForm = new TreatmentPlanForm(dgv_ShowPlan,sqliteName,tableName,path);
+            treatmentPlanForm.Show();
+
+         
         }
     }
 }

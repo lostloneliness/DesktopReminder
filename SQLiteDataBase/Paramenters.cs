@@ -12,7 +12,8 @@ namespace SQLiteDataBase
                                                  计划种类 TEXT NOT NULL,
                                                  执行时间 TEXT NOT NULL,
                                                  计划内容 TEXT NOT NULL,
-                                                 按时执行 TEXT ";
+                                                 按时执行 TEXT NOT NULL,
+                                                 执行说明 TEXT NOT NULL";
 
          public struct planTable
          {
@@ -21,6 +22,7 @@ namespace SQLiteDataBase
             public string executionTime;
             public string planContent ;
             public string executionOnime;
+            public string executionInstruction;
 
             public object this[int 索引]
             {
@@ -33,6 +35,7 @@ namespace SQLiteDataBase
                         case 2:return executionTime;
                         case 3:return planContent;
                         case 4:return executionOnime;
+                        case 5:return executionInstruction;
                         default:throw new AccessViolationException();
                     }
                 }

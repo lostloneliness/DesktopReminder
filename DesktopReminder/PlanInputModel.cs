@@ -47,12 +47,15 @@ namespace DesktopReminder
             for(int i = 0;i<planDatas.Count;i++)
             {
                 dgv.Rows.Add();
-                dgv.Rows[i].Cells[0].Value = planDatas[i].planTitle;
-                dgv.Rows[i].Cells[1].Value = planDatas[i].planKind;
-                dgv.Rows[i].Cells[2].Value = planDatas[i].executionTime;
-                dgv.Rows[i].Cells[3].Value = planDatas[i].planContent;
+                dgv.Rows[i].Cells[0].Value = planDatas[i].planTitle;         //计划标题
+                dgv.Rows[i].Cells[1].Value = planDatas[i].planKind;          //计划种类
+                dgv.Rows[i].Cells[2].Value = planDatas[i].executionTime;     //执行时间
+                dgv.Rows[i].Cells[3].Value = planDatas[i].planContent;       //计划内容
                 if (Query == true)
-                    dgv.Rows[i].Cells[4].Value = planDatas[i].executionOnime;
+                {
+                    dgv.Rows[i].Cells[4].Value = planDatas[i].executionOnime;//是否按时执行计划
+                    dgv.Rows[i].Cells[5].Value = planDatas[i].executionInstruction;   //执行说明
+                }
             }
 
         }
@@ -109,11 +112,8 @@ namespace DesktopReminder
             }
             //获取界面控件数据
             Paramenters.planTable planData = GetFormData();
-            //planData.planTitle = txt_PlanTitle.Text;
-            //planData.planKind = cbox_PlanKind.Text;
-            //planData.executionTime = dtp_ExecutionTime.Text;
-            //planData.planContent = txt_PlanContent.Text;
             planData.executionOnime = "";         //新计划的 按时完成 一列的值
+            planData.executionInstruction = "";         //新计划的 执行说明 一列的值
             //将数据存储到数据库中
             DataBase.InserDatabase(sqliteName, tableName, path, planData);
             if (DataBase.Information == null)  //保存数据成功

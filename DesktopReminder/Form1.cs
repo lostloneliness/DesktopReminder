@@ -46,6 +46,6 @@ namespace DesktopReminder
             nfi_trayMenu.ShowBalloonTip(1000, "计划提示", "提示信息", ToolTipIcon.Info);
         }
 
-       
+
     }
 }
