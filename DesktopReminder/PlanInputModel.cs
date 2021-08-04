@@ -14,6 +14,7 @@ namespace DesktopReminder
         static private string path = Environment.CurrentDirectory;  //.exe文件所在的目录
         static private string sqliteName = "plan";
         static private string tableName = "planTable";
+        static private string settableName = "settingTable";
         static private string oldTitle = null;
         static private bool status = true;
 
@@ -25,8 +26,7 @@ namespace DesktopReminder
             dgv_AddPlan.Columns[1].Width = dgv_AddPlan.Width / 4 ;
             dgv_AddPlan.Columns[2].Width = dgv_AddPlan.Width / 4 - 1;
             dgv_AddPlan.Columns[3].Width = dgv_AddPlan.Width / 4 - 1;
-            //初始化数据库，创建一个空的数据表
-            DataBase.InitDatabase(sqliteName,tableName,path);
+           
             //读取数据库的数据
             List<Paramenters.planTable> planDatas = DataBase.ReadDatabase(sqliteName, tableName, path);
             //将数据更新到dataGridView

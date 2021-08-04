@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopReminder", "DesktopReminder\DesktopReminder.csproj", "{8EF9BA8B-F5D2-4861-A96B-648ACC84927F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2A1985FD-D242-475B-8229-D09233412FFF} = {2A1985FD-D242-475B-8229-D09233412FFF}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLiteDataBase", "SQLiteDataBase\SQLiteDataBase.csproj", "{2A1985FD-D242-475B-8229-D09233412FFF}"
 EndProject

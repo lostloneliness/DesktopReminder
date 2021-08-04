@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using static SQLiteDataBase.Paramenters;
 
 namespace SQLiteDataBase
 {
@@ -14,7 +14,7 @@ namespace SQLiteDataBase
     {
         //数据库的增、删、改、查
         static private SQLiteConnection myConnection = null;
-        static private SQLiteCommand myCommand = new SQLiteCommand();
+        static private SQLiteCommand myCommand = new SQLiteCommand();    
         static string information = null;  //异常信息
 
         static public string Information
@@ -201,7 +201,7 @@ namespace SQLiteDataBase
         /// <param name="tableName">数据表名称</param>
         /// <param name="path">数据库存储路径</param>
         /// <returns></returns>
-        static public bool InitDatabase(string sqliteName, string tableName, string path)
+        static public bool InitDatabase(string sqliteName, string palntableName,string settingtableName, string path)
         {
             string absolutePath = path + "\\" + sqliteName + ".db";
             if (File.Exists(absolutePath))
@@ -209,7 +209,9 @@ namespace SQLiteDataBase
             try
             {
                 connectionSqlite(sqliteName, path);
-                createTable(tableName, Paramenters.planTableStruct);
+                createTable(palntableName, Paramenters.planTableStruct);      //创建计划数据表
+                createTable(settingtableName, Paramenters.reminderSetting);   //创建空的提醒设置数据表
+                insertData(settingtableName, new settingTable("0", "1", true,true));                                //给提醒设置数据表中插入初始值
                 closeConnection();
                 return true;
             }
@@ -326,6 +328,99 @@ namespace SQLiteDataBase
                 return false;
             }
             
+        }
+        #endregion
+
+
+        #region  提醒设置表
+
+        private static bool insertData(string tableName,settingTable settingtable,bool replace = false)
+        {
+            string instruction = "INSERT INTO";
+            if (replace)
+                instruction = "REPLACE INTO";
+            try
+            {
+                if (myConnection.State != ConnectionState.Open)
+                    myConnection.Open();
+                string SQL = $"{instruction} {tableName} VALUES(:param0,:param1,:param2,:param3)";
+                myCommand.CommandText = SQL;
+                myCommand.Connection = myConnection;
+                myCommand.Parameters.Add("param0", DbType.String);
+                myCommand.Parameters.Add("param1", DbType.String);      //字符
+                myCommand.Parameters.Add("param2", DbType.Boolean);     //布尔值
+                myCommand.Parameters.Add("param3", DbType.Boolean);     //布尔值
+
+                for(int i = 0;i<4;i++)
+                {
+                    myCommand.Parameters[i].Value = settingtable[i];
+                }
+
+                myCommand.ExecuteNonQuery();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                information = "插入设置数据失败" + ex.Message;
+                return false;
+            }
+        }
+        private static settingTable readSetData(string tableName)
+        {
+            settingTable settingtable = new settingTable();
+            try
+            {
+                if (myConnection.State != ConnectionState.Open)
+                    myConnection.Open();
+                string SQL = $"SELECT * FROM {tableName}"; //SELECT * FROM 数据表名 WHERE 条件
+                myCommand.CommandText = SQL;
+                myCommand.Connection = myConnection;
+                SQLiteDataReader myreader = myCommand.ExecuteReader();
+                while(myreader.Read())
+                {
+                    settingtable.reminderDay = myreader.GetString(0);
+                    settingtable.reminderTime = myreader.GetString(1);
+                    settingtable.isAutoCheck = myreader.GetBoolean(2);
+                    settingtable.isTimeCue = myreader.GetBoolean(3);
+                }
+                myreader.Close();
+                return settingtable;
+            }
+            catch(Exception ex)
+            {
+                return new settingTable();
+            }
+        }
+
+        public static bool InsertTable(string sqlitename,string path ,string tableName,settingTable settingtable,bool replace = false)
+        {
+            try
+            {
+                connectionSqlite(sqlitename,path);
+                insertData(tableName,settingtable,replace);
+                closeConnection();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
+        
+        public static settingTable ReadDataBase(string sqlitename,string path,string tableName)
+        {
+            settingTable settingtable = new settingTable();
+            try
+            {
+                connectionSqlite(sqlitename, path);
+                settingtable = readSetData(tableName);
+                closeConnection();
+                return settingtable;
+            }
+            catch(Exception ex)
+            {
+                return settingtable;
+            }
         }
         #endregion
     }

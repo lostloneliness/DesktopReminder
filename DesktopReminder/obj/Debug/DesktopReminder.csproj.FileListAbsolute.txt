@@ -1,7 +1,6 @@
 E:\C#\练习项目\DesktopReminder\DesktopReminder\bin\Debug\DesktopReminder.exe.config
 E:\C#\练习项目\DesktopReminder\DesktopReminder\bin\Debug\DesktopReminder.exe
 E:\C#\练习项目\DesktopReminder\DesktopReminder\bin\Debug\DesktopReminder.pdb
-E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\DesktopReminder.csprojAssemblyReference.cache
 E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\DesktopReminder.Form1.resources
 E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\DesktopReminder.Properties.Resources.resources
 E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\DesktopReminder.csproj.GenerateResource.cache
@@ -15,3 +14,4 @@ E:\C#\练习项目\DesktopReminder\DesktopReminder\bin\Debug\SQLiteDataBase.dll.
 E:\C#\练习项目\DesktopReminder\DesktopReminder\bin\Debug\System.Data.SQLite.xml
 E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\DesktopReminder.csproj.CopyComplete
 E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\DesktopReminder.TreatmentPlanForm.resources
+E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\DesktopReminder.csprojAssemblyReference.cache

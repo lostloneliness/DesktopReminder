@@ -13,3 +13,4 @@ E:\C#\练习项目\DesktopReminder\SQLiteDataBase\obj\Debug\SQLiteDataBase.cspro
 E:\C#\练习项目\DesktopReminder\SQLiteDataBase\obj\Debug\SQLiteDataBase.csproj.CopyComplete
 E:\C#\练习项目\DesktopReminder\SQLiteDataBase\obj\Debug\SQLiteDataBase.dll
 E:\C#\练习项目\DesktopReminder\SQLiteDataBase\obj\Debug\SQLiteDataBase.pdb
+E:\C#\练习项目\DesktopReminder\SQLiteDataBase\obj\Debug\SQLiteDataBase.csprojAssemblyReference.cache

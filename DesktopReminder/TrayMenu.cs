@@ -27,7 +27,7 @@ namespace DesktopReminder
             nfi_trayMenu.Visible = false;          //否则结束进程之后，图标会延时一段时间才会消失
 
             Environment.Exit(Environment.ExitCode);    //结束进程
-            //this.Close();         //窗体关闭了，但是程序进程以让在运行                   
+            //this.Close();         //窗体关闭了，但是程序进程以仍在运行                   
         }
 
         private void 开机自动运行ToolStripMenuItem_Click(object sender, EventArgs e)

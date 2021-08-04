@@ -43,6 +43,7 @@ namespace DesktopReminder
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel16 = new System.Windows.Forms.Panel();
+            this.label13 = new System.Windows.Forms.Label();
             this.chk_QueryDays = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txt_Days = new System.Windows.Forms.TextBox();
@@ -115,7 +116,7 @@ namespace DesktopReminder
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btn_Determine = new System.Windows.Forms.Button();
-            this.chk_Real_timeReminder = new System.Windows.Forms.CheckBox();
+            this.chk_isTimeCue = new System.Windows.Forms.CheckBox();
             this.chk_AutoCheck = new System.Windows.Forms.CheckBox();
             this.nud_RemindersIntervals = new System.Windows.Forms.NumericUpDown();
             this.nud_ReminderDays = new System.Windows.Forms.NumericUpDown();
@@ -160,6 +161,7 @@ namespace DesktopReminder
             this.nfi_trayMenu.ContextMenuStrip = this.cms_tryMenu;
             this.nfi_trayMenu.Icon = ((System.Drawing.Icon)(resources.GetObject("nfi_trayMenu.Icon")));
             this.nfi_trayMenu.Text = "DesktopReminder";
+            this.nfi_trayMenu.Visible = true;
             this.nfi_trayMenu.MouseClick += new System.Windows.Forms.MouseEventHandler(this.nfi_trayMenu_MouseClick);
             // 
             // cms_tryMenu
@@ -257,6 +259,7 @@ namespace DesktopReminder
             // 
             // panel16
             // 
+            this.panel16.Controls.Add(this.label13);
             this.panel16.Controls.Add(this.chk_QueryDays);
             this.panel16.Controls.Add(this.label10);
             this.panel16.Controls.Add(this.txt_Days);
@@ -264,6 +267,15 @@ namespace DesktopReminder
             this.panel16.Name = "panel16";
             this.panel16.Size = new System.Drawing.Size(236, 100);
             this.panel16.TabIndex = 14;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(140, 23);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(101, 12);
+            this.label13.TabIndex = 7;
+            this.label13.Text = "最多可以提前30天";
             // 
             // chk_QueryDays
             // 
@@ -734,6 +746,7 @@ namespace DesktopReminder
             // 
             // dtp_ExecutionTime
             // 
+            this.dtp_ExecutionTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtp_ExecutionTime.Location = new System.Drawing.Point(64, 97);
             this.dtp_ExecutionTime.Name = "dtp_ExecutionTime";
             this.dtp_ExecutionTime.Size = new System.Drawing.Size(167, 21);
@@ -839,7 +852,7 @@ namespace DesktopReminder
             this.tabPage5.Controls.Add(this.panel4);
             this.tabPage5.Controls.Add(this.panel2);
             this.tabPage5.Controls.Add(this.btn_Determine);
-            this.tabPage5.Controls.Add(this.chk_Real_timeReminder);
+            this.tabPage5.Controls.Add(this.chk_isTimeCue);
             this.tabPage5.Controls.Add(this.chk_AutoCheck);
             this.tabPage5.Controls.Add(this.nud_RemindersIntervals);
             this.tabPage5.Controls.Add(this.nud_ReminderDays);
@@ -914,16 +927,17 @@ namespace DesktopReminder
             this.btn_Determine.TabIndex = 9;
             this.btn_Determine.Text = "确定";
             this.btn_Determine.UseVisualStyleBackColor = true;
+            this.btn_Determine.Click += new System.EventHandler(this.btn_Determine_Click);
             // 
-            // chk_Real_timeReminder
+            // chk_isTimeCue
             // 
-            this.chk_Real_timeReminder.AutoSize = true;
-            this.chk_Real_timeReminder.Location = new System.Drawing.Point(16, 281);
-            this.chk_Real_timeReminder.Name = "chk_Real_timeReminder";
-            this.chk_Real_timeReminder.Size = new System.Drawing.Size(72, 16);
-            this.chk_Real_timeReminder.TabIndex = 8;
-            this.chk_Real_timeReminder.Text = "实时提醒";
-            this.chk_Real_timeReminder.UseVisualStyleBackColor = true;
+            this.chk_isTimeCue.AutoSize = true;
+            this.chk_isTimeCue.Location = new System.Drawing.Point(16, 281);
+            this.chk_isTimeCue.Name = "chk_isTimeCue";
+            this.chk_isTimeCue.Size = new System.Drawing.Size(72, 16);
+            this.chk_isTimeCue.TabIndex = 8;
+            this.chk_isTimeCue.Text = "实时提醒";
+            this.chk_isTimeCue.UseVisualStyleBackColor = true;
             // 
             // chk_AutoCheck
             // 
@@ -937,7 +951,18 @@ namespace DesktopReminder
             // 
             // nud_RemindersIntervals
             // 
+            this.nud_RemindersIntervals.DecimalPlaces = 2;
+            this.nud_RemindersIntervals.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this.nud_RemindersIntervals.Location = new System.Drawing.Point(50, 306);
+            this.nud_RemindersIntervals.Maximum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
             this.nud_RemindersIntervals.Minimum = new decimal(new int[] {
             1,
             0,
@@ -951,6 +976,7 @@ namespace DesktopReminder
             0,
             0,
             131072});
+            this.nud_RemindersIntervals.ValueChanged += new System.EventHandler(this.nud_RemindersIntervals_ValueChanged);
             // 
             // nud_ReminderDays
             // 
@@ -984,7 +1010,7 @@ namespace DesktopReminder
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(449, 12);
             this.label7.TabIndex = 2;
-            this.label7.Text = "若打开这个功能，则软件运行后会自动欠佳最近几天的计划任务，以达到提醒的效果";
+            this.label7.Text = "若打开这个功能，则软件运行后会自动检查最近几天的计划任务，以达到提醒的效果";
             // 
             // label6
             // 
@@ -1015,7 +1041,6 @@ namespace DesktopReminder
             // 
             // timer1
             // 
-            this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
@@ -1102,7 +1127,7 @@ namespace DesktopReminder
         private System.Windows.Forms.Button btn_AddPlan;
         private System.Windows.Forms.Button btn_ModifyPlan;
         private System.Windows.Forms.Button btn_Determine;
-        private System.Windows.Forms.CheckBox chk_Real_timeReminder;
+        private System.Windows.Forms.CheckBox chk_isTimeCue;
         private System.Windows.Forms.CheckBox chk_AutoCheck;
         private System.Windows.Forms.NumericUpDown nud_RemindersIntervals;
         private System.Windows.Forms.NumericUpDown nud_ReminderDays;
@@ -1118,23 +1143,10 @@ namespace DesktopReminder
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Panel panel8;
-        private System.Windows.Forms.Panel panel16;
-        private System.Windows.Forms.CheckBox chk_QueryDays;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox txt_Days;
-        private System.Windows.Forms.Panel panel15;
-        private System.Windows.Forms.CheckBox chk_QueryContent;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox txt_keyword;
-        private System.Windows.Forms.Panel panel13;
-        private System.Windows.Forms.Panel panel14;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Panel panel11;
         private System.Windows.Forms.Panel panel12;
         private System.Windows.Forms.Panel panel10;
-        private System.Windows.Forms.Button btn_cancel;
-        private System.Windows.Forms.Button btn_query;
         private System.Windows.Forms.DataGridView dgv_ShowPlan;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
@@ -1161,6 +1173,20 @@ namespace DesktopReminder
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.TextBox txt_keyword;
+        private System.Windows.Forms.Panel panel13;
+        private System.Windows.Forms.Panel panel14;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button btn_cancel;
+        private System.Windows.Forms.Button btn_query;
+        private System.Windows.Forms.CheckBox chk_QueryContent;
+        private System.Windows.Forms.CheckBox chk_QueryDays;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txt_Days;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Panel panel16;
+        private System.Windows.Forms.Panel panel15;
     }
 }
 
