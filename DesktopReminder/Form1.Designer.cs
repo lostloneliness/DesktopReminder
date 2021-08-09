@@ -942,7 +942,7 @@ namespace DesktopReminder
             // chk_AutoCheck
             // 
             this.chk_AutoCheck.AutoSize = true;
-            this.chk_AutoCheck.Location = new System.Drawing.Point(16, 145);
+            this.chk_AutoCheck.Location = new System.Drawing.Point(16, 161);
             this.chk_AutoCheck.Name = "chk_AutoCheck";
             this.chk_AutoCheck.Size = new System.Drawing.Size(228, 16);
             this.chk_AutoCheck.TabIndex = 7;
@@ -980,7 +980,7 @@ namespace DesktopReminder
             // 
             // nud_ReminderDays
             // 
-            this.nud_ReminderDays.Location = new System.Drawing.Point(97, 23);
+            this.nud_ReminderDays.Location = new System.Drawing.Point(97, 29);
             this.nud_ReminderDays.Name = "nud_ReminderDays";
             this.nud_ReminderDays.Size = new System.Drawing.Size(120, 21);
             this.nud_ReminderDays.TabIndex = 5;
@@ -1006,7 +1006,7 @@ namespace DesktopReminder
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(14, 187);
+            this.label7.Location = new System.Drawing.Point(14, 199);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(449, 12);
             this.label7.TabIndex = 2;
@@ -1024,7 +1024,7 @@ namespace DesktopReminder
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(14, 25);
+            this.label5.Location = new System.Drawing.Point(14, 31);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(77, 12);
             this.label5.TabIndex = 0;
@@ -1052,6 +1052,7 @@ namespace DesktopReminder
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.cms_tryMenu.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

@@ -36,5 +36,31 @@ namespace DesktopReminder
             e.Cancel = true;  //取消当前的操作，即取消关闭窗体的操作
             this.Hide();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            //判断CheckBox控件是否选中
+            if(chk_AutoCheck.Checked == true)
+            {
+                //提示近3天的任务
+                days = 3;
+                Thread thread = new Thread(() =>
+                {
+                    //读取数据库中所有的计划
+                    List<Paramenters.planTable> planDatas = DataBase.ReadDatabase(sqliteName, tableName, path);
+                    string plan = string.Empty;
+                    for (int j = 0; j < days; j++)                    {
+                        List<Paramenters.planTable> list = QueryDays(planDatas, j);                        
+                        for (int i = 0; i < list.Count; i++)
+                        {
+                            plan += list[i].planTitle + "\r\n";    //符合条件的计划标题
+                        }                      
+                    }
+                    DisplayBubble(days, plan);
+                });
+                thread.IsBackground = true;
+                thread.Start();
+            }
+        }
     }
 }

@@ -15,3 +15,5 @@ E:\C#\练习项目\DesktopReminder\DesktopReminder\bin\Debug\System.Data.SQLite.
 E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\DesktopReminder.csproj.CopyComplete
 E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\DesktopReminder.TreatmentPlanForm.resources
 E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\DesktopReminder.csprojAssemblyReference.cache
+E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\Interop.IWshRuntimeLibrary.dll
+E:\C#\练习项目\DesktopReminder\DesktopReminder\obj\Debug\DesktopReminder.csproj.ResolveComReference.cache

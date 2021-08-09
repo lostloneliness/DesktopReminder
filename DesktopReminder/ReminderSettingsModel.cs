@@ -13,6 +13,10 @@ namespace DesktopReminder
 {
     public partial class Form1
     {
+
+
+        private int days = 0;
+        private bool isAutoCheck = false;       //开机自检查
         /// <summary>
         /// 初始化 提醒设置 界面
         /// </summary>
@@ -42,6 +46,7 @@ namespace DesktopReminder
                 MessageBox.Show("设置成功");
                 if (chk_isTimeCue.Checked == true)
                 {
+                    days = Convert.ToInt32(nud_ReminderDays.Value);//存储提前天数
                     timer1.Interval = Convert.ToInt32(nud_RemindersIntervals.Value * 60 * 60 * 1000);
                     timer1.Enabled = true;
                 }
@@ -62,28 +67,38 @@ namespace DesktopReminder
             thread.Start();
 
         }
-        //后台线程 显示 气泡提醒
+        //后台线程 查找符合条件的计划，并气泡显示
         private void ReminderThread()
         {
-            int days = Convert.ToInt32(nud_ReminderDays.Value);//存储提前天数
+           
             //查找数据库中的所有数据
             List<Paramenters.planTable> planDatas = DataBase.ReadDatabase(sqliteName, tableName, path);
             List<planTable> list = QueryDays(planDatas, days);    //查找符合条件的计划
-            string strTemp = string.Empty;
             string plan = string.Empty;
             for(int i = 0;i<list.Count;i++)
             {
                 plan += list[i].planTitle + "\r\n";    //符合条件的计划标题
             }
-            if(days == 0) //即提请当天的计划
+            DisplayBubble(days, plan);                 //气泡显示
+        }
+
+        /// <summary>
+        /// 气泡显示
+        /// </summary>
+        /// <param name="days">天数</param>
+        /// <param name="plan">待显示的计划</param>
+        private void DisplayBubble(int days,string plan)
+        {
+            string strTemp = string.Empty;
+            if (days == 0) //即提请当天的计划
             {
-                strTemp = plan == null ? "今天无未执行计划" : "今天有以下未执行计划:\r\n"; //plan == null表示没有符合条件的计划
+                strTemp = plan == "" ? "今天无未执行计划" : "今天有以下未执行计划:\r\n"; //plan == ""表示没有符合条件的计划
             }
             else
-            { 
-                strTemp = plan == null ? "未来" + days + "天没有未执行的计划:\r\n":"未来" + days + "天有以下未执行的计划任务:\r\n";
+            {
+                strTemp = plan == "" ? "未来" + days + "天没有未执行的计划:\r\n" : "未来" + days + "天有以下未执行的计划任务:\r\n";
             }
-            nfi_trayMenu.ShowBalloonTip(2000, "计划提示:", strTemp + plan + "详情请单击托盘图标！", ToolTipIcon.Info); //提示显示时间1s           
+            nfi_trayMenu.ShowBalloonTip(2000, "计划提示:", strTemp + plan + "详情请单击托盘图标！", ToolTipIcon.Info); //提示显示时间1s          
         }
         private void nud_RemindersIntervals_ValueChanged(object sender, EventArgs e)
         {
