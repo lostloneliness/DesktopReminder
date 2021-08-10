@@ -37,7 +37,6 @@ namespace DesktopReminder
             this.系统设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.开机自动运行ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.取消开机自动运行ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.设置定时关机功能ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.退出程序ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -57,7 +56,6 @@ namespace DesktopReminder
             this.panel11 = new System.Windows.Forms.Panel();
             this.panel12 = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
-            this.btn_cancel = new System.Windows.Forms.Button();
             this.btn_query = new System.Windows.Forms.Button();
             this.dgv_ShowPlan = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -90,7 +88,6 @@ namespace DesktopReminder
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btn_ModifyPlan = new System.Windows.Forms.Button();
@@ -125,7 +122,6 @@ namespace DesktopReminder
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.cms_tryMenu.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -184,8 +180,7 @@ namespace DesktopReminder
             // 
             this.系统设置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.开机自动运行ToolStripMenuItem,
-            this.取消开机自动运行ToolStripMenuItem,
-            this.设置定时关机功能ToolStripMenuItem});
+            this.取消开机自动运行ToolStripMenuItem});
             this.系统设置ToolStripMenuItem.Name = "系统设置ToolStripMenuItem";
             this.系统设置ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.系统设置ToolStripMenuItem.Text = "系统设置";
@@ -204,13 +199,6 @@ namespace DesktopReminder
             this.取消开机自动运行ToolStripMenuItem.Text = "取消开机自动运行";
             this.取消开机自动运行ToolStripMenuItem.Click += new System.EventHandler(this.取消开机自动运行ToolStripMenuItem_Click);
             // 
-            // 设置定时关机功能ToolStripMenuItem
-            // 
-            this.设置定时关机功能ToolStripMenuItem.Name = "设置定时关机功能ToolStripMenuItem";
-            this.设置定时关机功能ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            this.设置定时关机功能ToolStripMenuItem.Text = "设置定时关机功能";
-            this.设置定时关机功能ToolStripMenuItem.Click += new System.EventHandler(this.设置定时关机功能ToolStripMenuItem_Click);
-            // 
             // 退出程序ToolStripMenuItem
             // 
             this.退出程序ToolStripMenuItem.Name = "退出程序ToolStripMenuItem";
@@ -222,10 +210,8 @@ namespace DesktopReminder
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Location = new System.Drawing.Point(1, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -250,7 +236,6 @@ namespace DesktopReminder
             this.panel8.Controls.Add(this.panel15);
             this.panel8.Controls.Add(this.panel13);
             this.panel8.Controls.Add(this.panel9);
-            this.panel8.Controls.Add(this.btn_cancel);
             this.panel8.Controls.Add(this.btn_query);
             this.panel8.Location = new System.Drawing.Point(540, 3);
             this.panel8.Name = "panel8";
@@ -391,19 +376,9 @@ namespace DesktopReminder
             this.panel10.Size = new System.Drawing.Size(750, 2);
             this.panel10.TabIndex = 11;
             // 
-            // btn_cancel
-            // 
-            this.btn_cancel.Location = new System.Drawing.Point(146, 278);
-            this.btn_cancel.Name = "btn_cancel";
-            this.btn_cancel.Size = new System.Drawing.Size(75, 23);
-            this.btn_cancel.TabIndex = 5;
-            this.btn_cancel.Text = "取消";
-            this.btn_cancel.UseVisualStyleBackColor = true;
-            this.btn_cancel.Click += new System.EventHandler(this.btn_cancel_Click);
-            // 
             // btn_query
             // 
-            this.btn_query.Location = new System.Drawing.Point(19, 278);
+            this.btn_query.Location = new System.Drawing.Point(146, 278);
             this.btn_query.Name = "btn_query";
             this.btn_query.Size = new System.Drawing.Size(75, 23);
             this.btn_query.TabIndex = 4;
@@ -672,15 +647,6 @@ namespace DesktopReminder
             // 
             this.Column12.HeaderText = "执行说明";
             this.Column12.Name = "Column12";
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(789, 459);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "历史查询";
-            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // tabPage4
             // 
@@ -976,7 +942,6 @@ namespace DesktopReminder
             0,
             0,
             131072});
-            this.nud_RemindersIntervals.ValueChanged += new System.EventHandler(this.nud_RemindersIntervals_ValueChanged);
             // 
             // nud_ReminderDays
             // 
@@ -1029,15 +994,6 @@ namespace DesktopReminder
             this.label5.Size = new System.Drawing.Size(77, 12);
             this.label5.TabIndex = 0;
             this.label5.Text = "提前提醒天数";
-            // 
-            // tabPage6
-            // 
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(789, 459);
-            this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "退出";
-            this.tabPage6.UseVisualStyleBackColor = true;
             // 
             // timer1
             // 
@@ -1098,16 +1054,13 @@ namespace DesktopReminder
         private System.Windows.Forms.ToolStripMenuItem 系统设置ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 开机自动运行ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 取消开机自动运行ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 设置定时关机功能ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 退出程序ToolStripMenuItem;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.DataGridView dgv_AddPlan;
         private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
@@ -1179,7 +1132,6 @@ namespace DesktopReminder
         private System.Windows.Forms.Panel panel13;
         private System.Windows.Forms.Panel panel14;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Button btn_cancel;
         private System.Windows.Forms.Button btn_query;
         private System.Windows.Forms.CheckBox chk_QueryContent;
         private System.Windows.Forms.CheckBox chk_QueryDays;

@@ -14,7 +14,7 @@ namespace SQLiteDataBase
                                                  计划内容 TEXT NOT NULL,
                                                  按时执行 TEXT NOT NULL,
                                                  执行说明 TEXT NOT NULL";
-        static public string reminderSetting = @"提前提醒天数 TEXT PRIMARY KEY NOT NULL,
+        static public string setTableStruct = @"提前提醒天数 TEXT PRIMARY KEY NOT NULL,
                                                  实时提醒时间 TEXT NOT NULL,
                                                  自动检查 BOOLEAN NOT NULL,
                                                  实时提醒标志 BOOLEAN NOT NULL";
@@ -73,6 +73,13 @@ namespace SQLiteDataBase
                 }
             }
 
+            /// <summary>
+            /// 初始化值
+            /// </summary>
+            /// <param name="reminderDay"></param>
+            /// <param name="reminderTime"></param>
+            /// <param name="isAutoCheck"></param>
+            /// <param name="isTimeCue"></param>
             public settingTable(string reminderDay, string reminderTime,bool isAutoCheck,bool isTimeCue)
             {
                 this.reminderDay = reminderDay;

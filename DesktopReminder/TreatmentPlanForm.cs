@@ -17,6 +17,13 @@ namespace DesktopReminder
         private string tableName;
         private string path;
         private DataGridView dgv;
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="dgv">DataGRidView控件</param>
+        /// <param name="sqliteName">数据库名称</param>
+        /// <param name="tableName">数据表名称</param>
+        /// <param name="path">数据库路径</param>
         public TreatmentPlanForm(DataGridView dgv, string sqliteName, string tableName, string path)
         {
             InitializeComponent();
@@ -30,11 +37,20 @@ namespace DesktopReminder
             this.dgv = dgv;
         }
 
+        /// <summary>
+        /// 退出button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_Quit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
+        /// <summary>
+        /// 保存button，将窗体上的数据保存到数据库中
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_Save_Click(object sender, EventArgs e)
         {
             //保存，将计划说明和是否按时执行保存到数据库中，实则是更新选中行的计划说明列和按时执行列
@@ -47,7 +63,7 @@ namespace DesktopReminder
             string executionInstruction = txt_Description.Text;
             bool updataResult = false;
             //将数据更新到数据库中
-            updataResult = DataBase.UpdataDatabase(sqliteName, tableName, path, executionOntime, executionInstruction, txt_PlanTitle.Text);
+            updataResult = DataBase.UpdataData(sqliteName, tableName, path, executionOntime, executionInstruction, txt_PlanTitle.Text);
             if (updataResult)
             {
                 //更新dataGridView

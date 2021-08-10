@@ -22,7 +22,7 @@ namespace DesktopReminder
         /// </summary>
         private void InitReminderSettings()
         {
-            settingTable settingtable = DataBase.ReadDataBase(sqliteName, path, settableName);
+            settingTable settingtable = DataBase.ReadSetData(sqliteName, path, settableName);
             nud_ReminderDays.Value = Convert.ToInt32(settingtable.reminderDay);
             nud_RemindersIntervals.Value = (decimal)(Convert.ToSingle(settingtable.reminderTime));
             chk_AutoCheck.Checked = settingtable.isAutoCheck == true ? true : false;
@@ -40,13 +40,14 @@ namespace DesktopReminder
             settingtable.reminderDay = nud_ReminderDays.Value.ToString();
             settingtable.reminderTime = nud_RemindersIntervals.Value.ToString();
             settingtable.isAutoCheck = chk_AutoCheck.Checked == true ? true : false;
-            bool flag = DataBase.InsertTable(sqliteName, path, settableName, settingtable, true);  //替换旧的数据而不是插入新的行
+            settingtable.isTimeCue = chk_isTimeCue.Checked == true ? true : false;
+            bool flag = DataBase.InsertData(sqliteName, path, settableName, settingtable, true);  //替换旧的数据而不是插入新的行
             if (flag)
             {
                 MessageBox.Show("设置成功");
                 if (chk_isTimeCue.Checked == true)
                 {
-                    days = Convert.ToInt32(nud_ReminderDays.Value);//存储提前天数
+                    days = Convert.ToInt32(nud_ReminderDays.Value) + 1;//存储提前天数
                     timer1.Interval = Convert.ToInt32(nud_RemindersIntervals.Value * 60 * 60 * 1000);
                     timer1.Enabled = true;
                 }
@@ -70,16 +71,20 @@ namespace DesktopReminder
         //后台线程 查找符合条件的计划，并气泡显示
         private void ReminderThread()
         {
-           
-            //查找数据库中的所有数据
-            List<Paramenters.planTable> planDatas = DataBase.ReadDatabase(sqliteName, tableName, path);
-            List<planTable> list = QueryDays(planDatas, days);    //查找符合条件的计划
+            //读取数据库中所有的计划
+            List<Paramenters.planTable> planDatas = DataBase.ReadData(sqliteName, tableName, path);
             string plan = string.Empty;
-            for(int i = 0;i<list.Count;i++)
+            for (int j = 0; j < days; j++)
             {
-                plan += list[i].planTitle + "\r\n";    //符合条件的计划标题
+                //查找符合条件的计划
+                List<Paramenters.planTable> list = QueryDays(planDatas, j);
+                for (int i = 0; i < list.Count; i++)
+                {
+                    plan += list[i].planTitle + "\r\n";    //符合条件的计划标题
+                }
             }
-            DisplayBubble(days, plan);                 //气泡显示
+            //气泡显示
+            DisplayBubble(days, plan);                
         }
 
         /// <summary>
@@ -100,14 +105,6 @@ namespace DesktopReminder
             }
             nfi_trayMenu.ShowBalloonTip(2000, "计划提示:", strTemp + plan + "详情请单击托盘图标！", ToolTipIcon.Info); //提示显示时间1s          
         }
-        private void nud_RemindersIntervals_ValueChanged(object sender, EventArgs e)
-        {
-            //timer1.Interval = (int)nud_RemindersIntervals.Value;
-        }
 
-        private void findByDays(int days)
-        {
-            
-        }
     }
 }

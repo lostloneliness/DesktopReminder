@@ -13,6 +13,9 @@ namespace DesktopReminder
     {
         //对应12个月的天数
         private List<byte> daysofMomth = new List<byte>() { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+        /// <summary>
+        /// 初始化“计划查询”tabpage
+        /// </summary>
         private void InitPlanQueryModel()
         {
             //初始化dataGridView控件中每一列的宽度
@@ -25,7 +28,7 @@ namespace DesktopReminder
         }
 
         /// <summary>
-        /// 按照提前日期，考虑大小月和闰年的情况
+        /// 按照提前日期查找，考虑大小月和闰年的情况
         /// 闰年，条件1，能被闰年整除
         /// 条件2，能被4整除，但是不能被100整除
         /// 例如，当前日期是2021年7月13日，提前日期是10天，那么就查询2021年7月23日的日期
@@ -47,9 +50,8 @@ namespace DesktopReminder
             else
                 daysofMomth[1] = 28;
 
-            //确定查找计划的执行时间
-            //考虑如果提前时间大于2个月，3个月怎么处理
-            //跨年了又该怎么处理
+            //未考虑提前了2个月，3个月情况
+            //未考虑跨年的情况
             if(currentDay + Advancedays <= daysofMomth[currentMonth - 1])
             {
                 planYear = currentYear;
@@ -69,14 +71,14 @@ namespace DesktopReminder
             return list;
         }
         /// <summary>
-        /// 查询
+        /// 查询按钮
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btn_query_Click(object sender, EventArgs e)
         {
             //读取数据库中的数据，返回list
-            List<Paramenters.planTable> planDatas = DataBase.ReadDatabase(sqliteName, tableName, path);
+            List<Paramenters.planTable> planDatas = DataBase.ReadData(sqliteName, tableName, path);
             List<planTable> list = new List<planTable>();
             
             //按照内容关键字查询
@@ -108,18 +110,9 @@ namespace DesktopReminder
             UpdateDataGridView(dgv_ShowPlan, list,true);
         }
 
-        /// <summary>
-        /// 退出查询
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_cancel_Click(object sender, EventArgs e)
-        {
-
-        }
 
         /// <summary>
-        /// dataGridView控件双击单元格时触发
+        /// DataGridView控件双击单元格时触发
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -127,9 +120,7 @@ namespace DesktopReminder
         {
             //将双击行的plantitle显示在新界面上
             TreatmentPlanForm treatmentPlanForm = new TreatmentPlanForm(dgv_ShowPlan,sqliteName,tableName,path);
-            treatmentPlanForm.Show();
-
-         
+            treatmentPlanForm.Show();        
         }
     }
 }

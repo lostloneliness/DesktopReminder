@@ -11,6 +11,11 @@ namespace DesktopReminder
 {
     partial class Form1
     {
+        /// <summary>
+        /// 点击托盘图标，显示窗体
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void nfi_trayMenu_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left) //当鼠标左键按下时
@@ -29,13 +34,9 @@ namespace DesktopReminder
             nfi_trayMenu.Visible = false;         
             Environment.Exit(Environment.ExitCode);    //结束进程              
         }
-        //修改注册表控制程序自动运行
+        
         private void 开机自动运行ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            //string path = System.Reflection.Assembly.GetExecutingAssembly().Location;     //应用程序完整路径
-            ////获取可执行文件名称，不包含路径，包含后缀名
-            //string strName = Application.ExecutablePath.Substring(Application.ExecutablePath.LastIndexOf("/")+1);
             isAutoOn(true);
             //设置当前菜单项被选中，上一个菜单项取消选中
             //item是ToolStripItem类型的，需要强制转换为ToolStripMenuItem，否则没有.checked选项
@@ -87,20 +88,23 @@ namespace DesktopReminder
             string systemStartPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
             //程序完整路径
             string appAllPath = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
-            string quickName = "360提醒器";       //需要创建的快捷方式名称
-            bool isExsits = GetQuickFolder(systemStartPath, quickName);
+            string quickName = "任务提醒器";       //需要创建的快捷方式名称
+            bool isExsits = QueryQuickFolder(systemStartPath, quickName);
             if (onOff)
             {
                 if (isExsits)
                     //创建快捷方式，快捷方式文件名中不显示后缀.lnk
                     CreateQuickName(systemStartPath, quickName, appAllPath);
                 else
-                    MessageBox.Show("软件时设置开启自启动");
+                    MessageBox.Show("软件已设置开启自启动");
             }
             //设置开机不自启动
             else
             {
-                Delete(systemStartPath, quickName);
+                if (isExsits)
+                    Delete(systemStartPath, quickName);
+                else
+                    MessageBox.Show("软件已设置开机不自启动");
             }
         }
 
@@ -112,7 +116,7 @@ namespace DesktopReminder
         /// <param name="directory">系统启动文件夹</param>
         /// <param name="quickName">快捷方式的名称，没有后缀名</param>
         /// <returns>true:存在，false：不存在</returns>
-        private bool GetQuickFolder(string directory,string quickName)
+        private bool QueryQuickFolder(string directory,string quickName)
         {
             List<string> tempStrs = new List<string>();
             string[] files = System.IO.Directory.GetFiles(directory);  //获取指定目录下的所有快捷方式的路径,带后缀
@@ -138,16 +142,8 @@ namespace DesktopReminder
         /// <param name="quickNames">所有符合条件的快捷方式</param>
         private void Delete(string directory,string quickName)
         {
-            string[] files = System.IO.Directory.GetFiles(directory);
-            if(files.Length > 1)
-            {
-                for(int i = 0;i < files.Length;i++)
-                {
-                    if (files[i] == System.IO.Path.Combine(directory, string.Format("{0}.lnk", quickName)))
-                        System.IO.File.Delete(files[i]);
-                }
-            }    
 
+            System.IO.File.Delete(System.IO.Path.Combine(directory, string.Format("{0}.lnk", quickName))) ;
         }
 
         /// <summary>
@@ -180,22 +176,7 @@ namespace DesktopReminder
         }
 
 
-        /// <summary>
-        /// 获取快捷方式的目标文件路径
-        /// </summary>
-        /// <param name="quickPath">快捷方式的路径</param>
-        /// <returns>目标文件路径</returns>
-        private string GetAppPathFromQuick(string quickPath)
-        {
-            if (System.IO.File.Exists(quickPath))
-            {
-                WshShell shell = new WshShell();
-                IWshShortcut shortct = shell.CreateShortcut(quickPath);
-                return shortct.TargetPath;
-            }
-            else
-                return "";
-        }
+      
     }
 
 }

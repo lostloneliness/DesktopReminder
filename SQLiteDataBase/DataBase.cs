@@ -25,13 +25,15 @@ namespace SQLiteDataBase
             }
         }
         #region 内部方法
+        /// <summary>
+        /// 连接数据库
+        /// </summary>
+        /// <param name="sqliteName">数据库名称</param>
+        /// <param name="path">数据库路径</param>
+        /// <returns></returns>
         static private bool connectionSqlite(string sqliteName, string path)
         {
             string absolutePath = path + "\\" + sqliteName + ".db";              //绝对路径
-            ////判断数据库是否存在
-            //if (!File.Exists(absolutePath))
-            //    File.Create(absolutePath);
-            //不需要判断文件是否存在，连接时，如果.db文件不存在，会自动创建
             try
             {
                 myConnection = new SQLiteConnection("data source =" + absolutePath);
@@ -46,6 +48,12 @@ namespace SQLiteDataBase
             }
         }
 
+        /// <summary>
+        /// 创建数据表
+        /// </summary>
+        /// <param name="tableName">数据表名称</param>
+        /// <param name="tableStruct">数据表结构</param>
+        /// <returns></returns>
         static private bool createTable(string tableName, string tableStruct)
         {
             try
@@ -65,6 +73,13 @@ namespace SQLiteDataBase
             }
         }
 
+        /// <summary>
+        /// 插入数据
+        /// </summary>
+        /// <param name="tableName">数据表名称</param>
+        /// <param name="planDate">待插入的数据</param>
+        /// <param name="replace">true：插入数据，false：替换数据</param>
+        /// <returns></returns>
         static private bool insertData(string tableName, Paramenters.planTable planDate, bool replace = false)
         {
             string instruction = "INSERT INTO";
@@ -98,6 +113,13 @@ namespace SQLiteDataBase
             }
         }
 
+        /// <summary>
+        /// 读取数据
+        /// </summary>
+        /// <param name="tableName">数据表名称</param>
+        /// <param name="condition">选择条件</param>
+        /// <param name="filed">读取字段</param>
+        /// <returns></returns>
         static private List<Paramenters.planTable> readData(string tableName, string condition = "", string filed = "*")
         {
             List<Paramenters.planTable> planDatas = new List<Paramenters.planTable>();
@@ -131,6 +153,12 @@ namespace SQLiteDataBase
                 return new List<Paramenters.planTable>();
             }
         }
+        /// <summary>
+        /// 删除数据
+        /// </summary>
+        /// <param name="tableName">数据表名称</param>
+        /// <param name="data">带删除的数据</param>
+        /// <returns></returns>
         static private bool deleteData(string tableName,string data)
         {
             try
@@ -150,7 +178,14 @@ namespace SQLiteDataBase
             }
 
         }
-
+        /// <summary>
+        /// 更新数据
+        /// </summary>
+        /// <param name="tableName">数据表名称</param>
+        /// <param name="executionOntime">“按时执行”字段</param>
+        /// <param name="executionInstruction">“执行说明”字段</param>
+        /// <param name="planTitle">“计划标题字段”</param>
+        /// <returns></returns>
         static private bool updataDara(string tableName,string executionOntime,string executionInstruction,string planTitle)
         {
             Paramenters.planTable planData = new Paramenters.planTable();
@@ -172,7 +207,10 @@ namespace SQLiteDataBase
             }
            
         }
-
+        /// <summary>
+        /// 关闭连接
+        /// </summary>
+        /// <returns></returns>
         static private bool closeConnection()
         {
             try
@@ -210,7 +248,7 @@ namespace SQLiteDataBase
             {
                 connectionSqlite(sqliteName, path);
                 createTable(palntableName, Paramenters.planTableStruct);      //创建计划数据表
-                createTable(settingtableName, Paramenters.reminderSetting);   //创建空的提醒设置数据表
+                createTable(settingtableName, Paramenters.setTableStruct);   //创建空的提醒设置数据表
                 insertData(settingtableName, new settingTable("0", "1", true,true));                                //给提醒设置数据表中插入初始值
                 closeConnection();
                 return true;
@@ -223,15 +261,15 @@ namespace SQLiteDataBase
         }
 
         /// <summary>
-        /// 连接数据路，读取数据表中的数据
+        /// 读取计划表中的数据
         /// </summary>
         /// <param name="sqliteName">数据库名称</param>
         /// <param name="tableName">数据表名称</param>
         /// <param name="path">数据库存储路径</param>
         /// <param name="condition">读取条件（WHERE）</param>
         /// <param name="filed">读取字段</param>
-        /// <returns></returns>
-        static public List<Paramenters.planTable> ReadDatabase(string sqliteName, string tableName, string path, string condition = "", string filed = "*")
+        /// <returns>计划表结构数据</returns>
+        static public List<Paramenters.planTable> ReadData(string sqliteName, string tableName, string path, string condition = "", string filed = "*")
         {
             List<Paramenters.planTable> planDatas = new List<Paramenters.planTable>();
             try
@@ -256,7 +294,7 @@ namespace SQLiteDataBase
         /// <param name="planData">插入的数据</param>
         /// <param name="replace"></param>
         /// <returns></returns>
-        static public bool InserDatabase(string sqliteName, string tableName, string path, Paramenters.planTable planData, bool replace = false)
+        static public bool InsertData(string sqliteName, string tableName, string path, Paramenters.planTable planData, bool replace = false)
         {
             try
             {
@@ -273,31 +311,14 @@ namespace SQLiteDataBase
         }
 
         /// <summary>
-        /// 保存数据，即替换数据，replace == true
+        /// 删除数据，连接数据库，删除数据，关闭数据库连接
         /// </summary>
         /// <param name="sqliteName">数据库名称</param>
         /// <param name="tableName">数据表名称</param>
-        /// <param name="path">数据库存储路径</param>
-        /// <param name="planData">替换的数据</param>
-        /// <param name="replace">bool值，是否替换，true替换，false插入</param>
+        /// <param name="path">数据库路径</param>
+        /// <param name="data">待删除的数据</param>
         /// <returns></returns>
-        static public bool SaveDatabase(string sqliteName, string tableName, string path, Paramenters.planTable planData, bool replace = true)
-        {
-            try
-            {
-                connectionSqlite(sqliteName, path);
-                insertData(tableName, planData, replace);
-                closeConnection();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                information = "保存数据失败；\r\n" + ex.Message;
-                return false;
-            }
-        }
-
-        static public bool DeleteDatabase(string sqliteName,string tableName,string path,string data)
+        static public bool DeleteData(string sqliteName,string tableName,string path,string data)
         {
             try
             {
@@ -311,8 +332,17 @@ namespace SQLiteDataBase
                 return false;
             }
         }
-
-        static public bool UpdataDatabase(string sqliteName,string tableName,string path, string executionOntime, string executionInstruction, string planTitle)
+        /// <summary>
+        /// 更新数据
+        /// </summary>
+        /// <param name="sqliteName">数据库名称</param>
+        /// <param name="tableName">数据表名称</param>
+        /// <param name="path">数据库路径</param>
+        /// <param name="executionOntime">“按时执行”字段</param>
+        /// <param name="executionInstruction">“执行说明”字段</param>
+        /// <param name="planTitle">“计划标题”字段</param>
+        /// <returns></returns>
+        static public bool UpdataData(string sqliteName,string tableName,string path, string executionOntime, string executionInstruction, string planTitle)
         {
             try
             {
@@ -333,7 +363,6 @@ namespace SQLiteDataBase
 
 
         #region  提醒设置表
-
         private static bool insertData(string tableName,settingTable settingtable,bool replace = false)
         {
             string instruction = "INSERT INTO";
@@ -365,6 +394,7 @@ namespace SQLiteDataBase
                 return false;
             }
         }
+       
         private static settingTable readSetData(string tableName)
         {
             settingTable settingtable = new settingTable();
@@ -392,7 +422,16 @@ namespace SQLiteDataBase
             }
         }
 
-        public static bool InsertTable(string sqlitename,string path ,string tableName,settingTable settingtable,bool replace = false)
+        /// <summary>
+        /// 插入数据
+        /// </summary>
+        /// <param name="sqlitename">数据库名称</param>
+        /// <param name="path">数据库路径</param>
+        /// <param name="tableName">数据表名称</param>
+        /// <param name="settingtable">设置表数据</param>
+        /// <param name="replace">true:替换数据，false：插入数据</param>
+        /// <returns></returns>
+        public static bool InsertData(string sqlitename,string path ,string tableName,settingTable settingtable,bool replace = false)
         {
             try
             {
@@ -406,8 +445,14 @@ namespace SQLiteDataBase
                 return false;
             }
         }
-        
-        public static settingTable ReadDataBase(string sqlitename,string path,string tableName)
+        /// <summary>
+        /// 读取设置表中的数据
+        /// </summary>
+        /// <param name="sqlitename">数据库名称</param>
+        /// <param name="path">数据库路径</param>
+        /// <param name="tableName">数据表名称</param>
+        /// <returns></returns>
+        public static settingTable ReadSetData(string sqlitename,string path,string tableName)
         {
             settingTable settingtable = new settingTable();
             try

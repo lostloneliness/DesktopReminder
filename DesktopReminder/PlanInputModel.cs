@@ -11,14 +11,30 @@ namespace DesktopReminder
 {
     partial class Form1
     {
-        static private string path = Environment.CurrentDirectory;  //.exe文件所在的目录
+        /// <summary>
+        /// 应用程序.exe所在的路径
+        /// </summary>
+        static private string path = Environment.CurrentDirectory;         
+        /// <summary>
+        /// 数据库名称
+        /// </summary>
         static private string sqliteName = "plan";
+        /// <summary>
+        /// 数据表名称
+        /// </summary>
         static private string tableName = "planTable";
+        /// <summary>
+        /// 设置表名称
+        /// </summary>
         static private string settableName = "settingTable";
+        /// <summary>
+        /// 保存旧计划的标题
+        /// </summary>
         static private string oldTitle = null;
-        static private bool status = true;
 
-
+        /// <summary>
+        /// 初始化“计划录入”tabpage
+        /// </summary>
         private void InitPlanInputForm()
         {
             //初始化dataGridView控件列的大小
@@ -28,22 +44,21 @@ namespace DesktopReminder
             dgv_AddPlan.Columns[3].Width = dgv_AddPlan.Width / 4 - 1;
            
             //读取数据库的数据
-            List<Paramenters.planTable> planDatas = DataBase.ReadDatabase(sqliteName, tableName, path);
+            List<Paramenters.planTable> planDatas = DataBase.ReadData(sqliteName, tableName, path);
             //将数据更新到dataGridView
             UpdateDataGridView(dgv_AddPlan, planDatas, false) ;
         }
+        
         /// <summary>
-        /// 将数据在dateGridView显示
+        /// 将数据显示在DataGridView控件上
         /// </summary>
+        /// <param name="dgv">DataGridView控件</param>
+        /// <param name="planDatas">待显示的计划</param>
+        /// <param name="Query">显示“是否按时执行计划”列和“执行说明”列</param>
         private void UpdateDataGridView(DataGridView dgv, List<Paramenters.planTable> planDatas,bool Query)
         {
 
-            dgv.Rows.Clear();
-            //使用BindingList绑定数据的时候，只显示多少行，但是不显示内容
-            //BindingList<Paramenters.planTable> Blist = new BindingList<Paramenters.planTable>(planDatas);
-            //dgv_Plan.AutoGenerateColumns = true;         //允许dataGridView自动创建列
-            //dgv_Plan.DataSource = Blist;
-           
+            dgv.Rows.Clear();         
             for(int i = 0;i<planDatas.Count;i++)
             {
                 dgv.Rows.Add();
@@ -60,17 +75,10 @@ namespace DesktopReminder
 
         }
 
-        /// <summary>
-        /// 将数据添加到数据库中，并将这一条数据插入到dataGridView空间中
-        /// 不采用UpdateDataGridView(),避免更新已经显示的值，造成时间浪费
-        /// </summary>
-        private void AddDataToDb()
-        {
-
-        }
         #region DataGridView的右键事件，增加、修改、删除计划
         private void 添加计划ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //使能界面右侧的panel控件
             panel1.Enabled = true;
             btn_AddPlan.Enabled = true;
             btn_ModifyPlan.Enabled = false;
@@ -92,7 +100,7 @@ namespace DesktopReminder
         private void 删除计划ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //从数据库中删除
-            DataBase.DeleteDatabase(sqliteName, tableName, path, dgv_AddPlan.SelectedRows[0].Cells[0].Value.ToString().Trim());
+            DataBase.DeleteData(sqliteName, tableName, path, dgv_AddPlan.SelectedRows[0].Cells[0].Value.ToString().Trim());
             //从dataGridView中删除
             dgv_AddPlan.Rows.Remove(dgv_AddPlan.SelectedRows[0]);
             if (DataBase.Information == null)
@@ -102,6 +110,11 @@ namespace DesktopReminder
         }
         #endregion
 
+        /// <summary>
+        /// 添加计划按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_AddPlan_Click(object sender, EventArgs e)
         {
            
@@ -115,7 +128,7 @@ namespace DesktopReminder
             planData.executionOnime = "";         //新计划的 按时完成 一列的值
             planData.executionInstruction = "";         //新计划的 执行说明 一列的值
             //将数据存储到数据库中
-            DataBase.InserDatabase(sqliteName, tableName, path, planData);
+            DataBase.InsertData(sqliteName, tableName, path, planData);
             if (DataBase.Information == null)  //保存数据成功
             {
                 //将添加的数据加载到dataGridView中的去
@@ -129,6 +142,11 @@ namespace DesktopReminder
             else
                 MessageBox.Show(DataBase.Information);
         }
+        /// <summary>
+        /// 修改计划按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_ModifyPlan_Click(object sender, EventArgs e)
         {
             //获取修改后textBox中的数据
@@ -139,14 +157,15 @@ namespace DesktopReminder
             dgv_AddPlan.SelectedRows[0].Cells[1].Value = cbox_PlanKind.Text;
             dgv_AddPlan.SelectedRows[0].Cells[2].Value = dtp_ExecutionTime.Text;
             dgv_AddPlan.SelectedRows[0].Cells[3].Value = txt_PlanContent.Text;
-            //dataGridView中的行是从0开始的，数据库中的行数从1开始的
-            //Paramenters.planTable planData2 = DataBase.UpdataDatabase(sqliteName, tableName, planData, path, (dgv_Plan.CurrentCell.RowIndex+1).ToString());
-
-            DataBase.DeleteDatabase(sqliteName, tableName, path, oldTitle);   //删除旧的数据,这里的txt_PlamTitle.Text是修改后的值
-            DataBase.InserDatabase(sqliteName, tableName, path, planData);    //添加新的数据
+            
+            DataBase.DeleteData(sqliteName, tableName, path, oldTitle);   //删除旧的数据,这里的txt_PlamTitle.Text是修改后的值
+            DataBase.InsertData(sqliteName, tableName, path, planData);    //添加新的数据
         }
 
-        //获取界面的数据
+        /// <summary>
+        /// 获取界面右侧panel控件中的数据
+        /// </summary>
+        /// <returns></returns>
         private Paramenters.planTable GetFormData()
         {
             Paramenters.planTable planData = new Paramenters.planTable();
